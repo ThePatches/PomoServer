@@ -29,8 +29,15 @@ class TasQue:
     def __init__(self, ilist):
         __thequeue = deque(ilist)
 
-    def mark_complete(self):
+ # mark_complete only does simple completion, not insertion
+    def mark_complete(self, cont):
         t = __thequeue.popleft()
         t.done()
         if t.recur == True and t.times != 0:
-            __thequeue.append(t)
+            if cont == True:
+                __thequeue.appendleft(t)
+            else:
+                __thequeue.append(t)
+        
+
+# TODO: Infinite repeat, move in the queue, delete specific...
