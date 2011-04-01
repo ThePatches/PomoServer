@@ -25,9 +25,14 @@ class Task:
 # Task Queue?
 class TasQue:
     __thequeue = []
-
     def __init__(self, ilist):
-        __thequeue = deque(ilist)
+       self.__thequeue = deque(ilist)
+
+    def __getitem__(self, key):
+        return self.__thequeue[key]
+
+    def getQue(self):
+        return self.__thequeue
 
  # mark_complete only does simple completion, not insertion
     def mark_complete(self, cont):
