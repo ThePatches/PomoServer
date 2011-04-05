@@ -36,13 +36,16 @@ class TasQue:
 
  # mark_complete only does simple completion, not insertion
     def mark_complete(self, cont):
-        t = __thequeue.popleft()
+        t = self.__thequeue.popleft()
         t.done()
+        # You will need to generalize this!
+        print t.name + ' completed.'
+        print self.__thequeue[0].name + ' is up next.'
         if t.recur == True and t.times != 0:
             if cont == True:
-                __thequeue.appendleft(t)
+                self.__thequeue.appendleft(t)
             else:
-                __thequeue.append(t)
+                self.__thequeue.append(t)
         
 
 # TODO: Infinite repeat, move in the queue, delete specific...

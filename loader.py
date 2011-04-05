@@ -25,7 +25,7 @@ def loadFile(iFile): # Should be a class
                 else:
                     t = int(s2[3])
             task = Task(s2[0], s2[1], r, t)
-        tasques.append(task)
+            tasques.append(task)
     f.close()
     q = TasQue(tasques)
     return q

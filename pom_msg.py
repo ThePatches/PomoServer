@@ -6,6 +6,7 @@
 KILL = 0
 SUSPEND = 1
 RESUME = 2
+DONE = 3
 
 class PMsg:
     __code = 0
