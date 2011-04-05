@@ -29,6 +29,9 @@ class PMsg:
         else:
             return 'simple'
 
+    def getCode(self):
+        return self.__code
+
     def makeStr(self):
         return str(self.__code) + '|' + self.__action
 

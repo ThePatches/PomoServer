@@ -2,6 +2,7 @@
 # to do: configuration files? I think so...
 
 from task import Task, TasQue
+from pom_msg import *
 from loader import loadFile
 import time
 import socket # my socket info should be parameterized?
@@ -26,11 +27,12 @@ def do_pomo():
 
     while True: # Set up a loop that does the daemon work
         c, addr = s.accept()
-        msg = c.recv(1024)
+        msg = fromStr(c.recv(1024))
         t2 = time.time()
         
         if c != None:
-            if msg == 0: # kill message!
+            if msg.getCode() == KILL: # kill message!
+                c.close()
                 break
 
         if int(t2 - t1) > work_block:
@@ -43,4 +45,7 @@ def do_pomo():
         c.close() # close the connection at the end of this loop.
         # time.sleep(play_block)
 
+    s.close()
     print 'Pomo Service Terminated!'
+
+do_pomo()
