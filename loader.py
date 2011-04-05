@@ -6,7 +6,6 @@ from task import Task, TasQue
 # print t_dat
 # f.close()
 
-# use string.strip() to make this more robust.
 
 def loadFile(iFile): # Should be a class
     f = open(iFile, 'r')

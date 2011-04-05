@@ -22,18 +22,25 @@ def do_pomo():
     s.bind((host, port))
     s.listen(5)
 
+    t1 = time.time()
+
     while True: # Set up a loop that does the daemon work
         c, addr = s.accept()
-        msg = s.recv()
-        if msg == 0: # kill message!
-            break
+        msg = c.recv(1024)
+        t2 = time.time()
+        
+        if c != None:
+            if msg == 0: # kill message!
+                break
 
-        time.sleep(work_block) # This needs to get fixed!
-        try:
-            the_que.mark_complete()
-        except:
-            pass
-        print 'Play Time Begins...'
-        time.sleep(play_block) # This needs to get fixed!
+        if int(t2 - t1) > work_block:
+            try:
+                the_que.mark_complete()
+                print 'Work time complete...'
+            except:
+                pass
+
+        c.close() # close the connection at the end of this loop.
+        # time.sleep(play_block)
 
     print 'Pomo Service Terminated!'

@@ -1,0 +1,22 @@
+pom.py usage:
+
+pom.py [-kdrpseh]
+
+       -k Kill the service -- end pomodoro tracking saving the existing state,
+       	  causes the service to terminate.
+
+       -d Done. Marks the currect task finished, begins break and queues up
+       	  the next task.
+
+       -r Repeat the current task. Marks the current task for repeat on the
+       	  next cycle.
+
+       -p Postpones a task moving it to the end of the queue.
+
+       -s Suspend the service. Halts at your current task, but leaves the
+       	  service running.
+
+       -e rEsumes the service if suspended. You will resume at the task you
+       	  left unfinished.
+
+       -h Displays this help

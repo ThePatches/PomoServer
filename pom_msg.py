@@ -1,6 +1,7 @@
 #! /usr/bin/python
 
 # message class and messages
+# useless because of string passing?
 
 KILL = 0
 SUSPEND = 1
@@ -28,3 +29,9 @@ class PMsg:
         else:
             return 'simple'
 
+    def makeStr(self):
+        return str(self.__code) + '|' + self.__action
+
+def fromStr(iString):
+    arr = iString.split('|')
+    return PMsg(int(arr[0]), arr[1])
