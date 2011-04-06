@@ -3,6 +3,7 @@
 # message class and messages
 # useless because of string passing?
 
+RUN = -1
 KILL = 0
 SUSPEND = 1
 RESUME = 2

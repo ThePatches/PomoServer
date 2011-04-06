@@ -9,7 +9,7 @@ import pom_msg
 #-----------CONFIGURATION STUFF----------------
 
 PORT = 12345
-HOST = socket.gethostname()
+HOST = "localhost"
 
 #----------------------------------------------
 

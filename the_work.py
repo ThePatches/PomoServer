@@ -60,4 +60,15 @@ def do_pomo():
     s.close()
     print 'Pomo Service Terminated!'
 
-do_pomo()
+def work_it(tasks, code):
+    if code == DONE:
+        print 'Completed ' + tasks[0].name
+        tasks.mark_complete(False)
+
+    return tasks[0]
+    
+
+
+
+if __name__ == "__main__":
+    do_pomo()
