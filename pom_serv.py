@@ -9,10 +9,9 @@ from task import Task
 from pom_msg import *
 from the_work import work_it
 import loader
+from config import *
 
 #----------------CONFIG FILE STUFF----------------
-PORT = 12345
-HOST = "localhost"
 filename = 'first.dat'
 work_block = 20
 play_block = 20

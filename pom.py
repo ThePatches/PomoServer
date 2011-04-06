@@ -3,15 +3,9 @@
 import socket
 import sys # For command line arguments
 import pom_msg
+from config import *
 
 # This file interacts with the running service
-
-#-----------CONFIGURATION STUFF----------------
-
-PORT = 12345
-HOST = "localhost"
-
-#----------------------------------------------
 
 if len(sys.argv) > 1:
     if sys.argv[1] == '-h':
