@@ -9,14 +9,14 @@ pom.py [-kdrpseh]
        	  the next task.
 
        -r Repeat the current task. Marks the current task for repeat on the
-       	  next cycle.
+       	  next cycle. [NOT SUPPORTED]
 
-       -p Postpones a task moving it to the end of the queue.
+       -p Postpones a task moving it to the end of the queue. [NOT SUPPORTED]
 
        -s Suspend the service. Halts at your current task, but leaves the
-       	  service running.
+       	  service running. [NOT SUPPORTED]
 
        -e rEsumes the service if suspended. You will resume at the task you
-       	  left unfinished.
+       	  left unfinished. [NOT SUPPORTED]
 
        -h Displays this help

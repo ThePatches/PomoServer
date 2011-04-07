@@ -1,12 +1,5 @@
 from task import Task, TasQue
 
-# t_list = []
-# f = open('first.dat', 'r')
-# t_dat = f.read()
-# print t_dat
-# f.close()
-
-
 def loadFile(iFile): # Should be a class
     f = open(iFile, 'r')
     tasques = []
