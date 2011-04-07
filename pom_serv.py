@@ -11,12 +11,6 @@ from the_work import work_it
 import loader
 from config import *
 
-#----------------CONFIG FILE STUFF----------------
-filename = 'first.dat'
-work_block = 20
-play_block = 20
-#-------------------------------------------------
-
 class PomHandler(SocketServer.BaseRequestHandler):
     def handle(self):
         data = fromStr(self.request.recv(1024))
@@ -44,17 +38,17 @@ if __name__ == "__main__":
     server_thread.start()
 
     # configure Pomodoro functions
-    q = loader.loadFile(filename)
+    q = loader.loadFile(FILELOC)
     in_time = time.time()
     isPlay = False
-    t_block = work_block
+    t_block = WORK_TIME
 
     while threading.active_count() > 1:
         if server.code == DONE: #if server.code in [set] use me!
             tasq = work_it(q, server.code, in_time)
             print 'Starting play time...'
             isPlay = True
-            t_block = play_block
+            t_block = PLAY_TIME
             in_time = time.time()
             server.code = RUN
         elif server.code == RUN:
@@ -63,13 +57,13 @@ if __name__ == "__main__":
                     tasq = work_it(q, DONE) # RUN OUT OF TASKS?
                     print 'Starting play time...'
                     isPlay = True
-                    t_block = play_block
+                    t_block = PLAY_TIME
                     in_time = time.time()
                 else:
                     print 'Play Time Over...'
                     print 'Begin ' + q[0].name
                     isPlay = False
-                    t_block = work_block
+                    t_block = WORK_TIME
                     in_time = time.time()
         time.sleep(0.1)
         
