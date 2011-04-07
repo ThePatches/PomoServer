@@ -21,7 +21,9 @@ processing in the foreground.
 Once the server has started ``pom.py`` can be used to interact with the running
 program. While rudimentary, a user can still see the available actions by running
 the program with:
-    ``python pom.py -h``
+
+``python pom.py -h``
+
 Remember: you will have to manually kill the service or it will run to termination,
 You can either do so manually (``kill``) or you can use the ``-k`` option of the ``pom.py``
 program (Note: evetually, the ``-k`` option will perform cleanup, so as a habit, it's always better
@@ -31,15 +33,15 @@ What Needs to be Done
 =======================
 PomoServer still needs a fair amount of work. Currently, there are two main lines of development:
 
-    1. Convert the ``.py`` code into something more amenable to a background service. While
+1. Convert the ``.py`` code into something more amenable to a background service. While
     `this recipie <http://code.activestate.com/recipes/278731/>` is a place to start, I'd love for
     the application to become compiled code so that there is a named, running service that makes the
     server easy to identify in ``top`` or ``ps``.
-    2. Enhancements to the Pomodoro task list are more than welcome. It would be great to move tasks
+2. Enhancements to the Pomodoro task list are more than welcome. It would be great to move tasks
     around the list from the command line or add them on the fly.
-    3. Make the task files more robust (possibly using `Configparser <http://docs.python.org/library/configparser.html>`).
+3. Make the task files more robust (possibly using `Configparser <http://docs.python.org/library/configparser.html>`).
     all of this work can be done in ``loader.py`` and is therefore really low-impact towards the rest of the project.
-    4. Notification. As I wrote the initial version for the command line, I am spitting messages out with
+4. Notification. As I wrote the initial version for the command line, I am spitting messages out with
     ``print``. A more robust system that works well with window managers will greatly improve the
     application.
     
