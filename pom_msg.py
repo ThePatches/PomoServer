@@ -9,6 +9,12 @@ SUSPEND = 1
 RESUME = 2
 DONE = 3
 
+# some constants
+
+RECR = 'RECUR '
+NONE = 'None'
+DELAY = 'DELAY '
+
 class PMsg:
     __code = 0
     __action = 'None'
