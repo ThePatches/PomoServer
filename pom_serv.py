@@ -51,10 +51,10 @@ if __name__ == "__main__":
 
     while threading.active_count() > 1:
         if server.code == DONE: #if server.code in [set] use me!
-            tasq = work_it(q, server.msg, in_time)
+            tasq = work_it(q, server.msg)
             print 'Starting play time...'
             isPlay = True
-            t_block = PLAY_TIME
+            t_block = PLAY_TIME + (WORK_TIME - int(in_time - time.time()))
             in_time = time.time()
             server.code = RUN
         elif server.code == RUN:
