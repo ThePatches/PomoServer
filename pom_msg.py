@@ -3,6 +3,7 @@
 # message class and messages
 # useless because of string passing?
 
+# Numeric Codes for operation
 RUN = -1
 KILL = 0
 SUSPEND = 1
@@ -11,9 +12,9 @@ DONE = 3
 
 # some constants
 
-RECR = 'RECUR '
-NONE = 'None'
-DELAY = 'DELAY '
+RECR = 'RECUR ' # indicates a recurring task. Format: RECUR X <- X = num times
+NONE = 'None'   # Blank Task based only on its codes
+DELAY = 'DELAY '# indicates a task delayed to later in the list Format: DELAY X <- X = num times 
 
 class PMsg:
     __code = 0

@@ -18,7 +18,7 @@ def work_it(tasks, msg):
             else:
                 tasks[0].times + n
             tasks.mark_complete(True)
-        elif msg.getAction()[:6] == DELAY:
+        elif msg.getAction()[:6] == DELAY: # poor style...
             n = int(msg.getAction().split(' ')[1])
             if tasks[0].recur == False:
                 tasks[0].recur = True
