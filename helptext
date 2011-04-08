@@ -14,9 +14,9 @@ pom.py [-kdrpseh]
        -p Postpones a task moving it to the end of the queue. [NOT SUPPORTED]
 
        -s Suspend the service. Halts at your current task, but leaves the
-       	  service running. [NOT SUPPORTED]
+       	  service running.
 
        -e rEsumes the service if suspended. You will resume at the task you
-       	  left unfinished. [NOT SUPPORTED]
+       	  left unfinished.
 
        -h Displays this help

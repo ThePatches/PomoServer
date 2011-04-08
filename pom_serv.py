@@ -17,16 +17,22 @@ class PomHandler(SocketServer.BaseRequestHandler):
         # self.request.send(response)
         self.request.close()
         self.server.code = data.getCode()
-        if data.getCode() == 0:
+        self.server.msg = data
+        if data.getCode() == KILL:
             print 'Shutting down Pom Server...'
             self.server.shutdown()
+        elif data.getCode() == SUSPEND:
+            print 'Suspending Pom Server...'
+        elif data.getCode() == RESUME:
+            print 'Resuming the Pom Server...'
 
     def finish(self):
         self.__done = True
 
 class PServer(SocketServer.ThreadingMixIn, SocketServer.TCPServer):
     daemon_threads = True
-    code = RUN
+    code = RUN             # set indepentendly
+    msg = PMsg(RUN, NONE)  # indicates an impending action
 
 if __name__ == "__main__":
     # configure server
@@ -45,7 +51,7 @@ if __name__ == "__main__":
 
     while threading.active_count() > 1:
         if server.code == DONE: #if server.code in [set] use me!
-            tasq = work_it(q, server.code, in_time)
+            tasq = work_it(q, server.msg, in_time)
             print 'Starting play time...'
             isPlay = True
             t_block = PLAY_TIME
@@ -54,7 +60,7 @@ if __name__ == "__main__":
         elif server.code == RUN:
             if int(time.time() - in_time) > t_block:
                 if isPlay == False:
-                    tasq = work_it(q, DONE) # RUN OUT OF TASKS?
+                    tasq = work_it(q, PMsg(DONE, 'None')) # RUN OUT OF TASKS?
                     print 'Starting play time...'
                     isPlay = True
                     t_block = PLAY_TIME
@@ -65,6 +71,11 @@ if __name__ == "__main__":
                     isPlay = False
                     t_block = WORK_TIME
                     in_time = time.time()
+        elif server.code == RESUME:
+            server.code = RUN
+            print  'Resuming Pom Service...' + q[0].name + ' is current task.'
+            in_time = time.time()
+            isPlay = False
         time.sleep(0.1)
         
     sys.exit(0)
