@@ -20,7 +20,7 @@ class Task(object):
             self.times = self.times - 1
         
 # Task Queue?
-class TasQue(object):
+class TaskQueue(object):
     __thequeue = []
     def __init__(self, ilist):
        self.__thequeue = deque(ilist)

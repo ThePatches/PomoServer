@@ -1,8 +1,8 @@
-from task import Task, TasQue
+from task import Task, TaskQueue
 
-def loadFile(iFile): # Should be a class
+def loadFile(filename): # Should be a class
     f = open(iFile, 'r')
-    tasques = []
+    task_queues = []
     task = Task('empty', 'nothing')
     for line in f:
         line = line.strip()
@@ -18,7 +18,7 @@ def loadFile(iFile): # Should be a class
                 else:
                     t = int(s2[3])
             task = Task(s2[0], s2[1], r, t)
-            tasques.append(task)
+            task_queues.append(task)
     f.close()
-    q = TasQue(tasques)
+    q = TaskQueue(tasques)
     return q
