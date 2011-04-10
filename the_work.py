@@ -1,9 +1,9 @@
 #!/usr/bin/python
 
-from task import *
-from pom_msg import *
 from config import *
 from loader import loadFile
+from task import *
+from pom_msg import *
 
 def work_it(tasks, msg):
     if msg.getCode() == DONE:

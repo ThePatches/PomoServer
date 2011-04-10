@@ -1,14 +1,14 @@
 from task import Task, TaskQueue
 
 def loadFile(filename): # Should be a class
-    f = open(iFile, 'r')
+    f = file(filename)
     task_queues = []
     task = Task('empty', 'nothing')
     for line in f:
         line = line.strip()
         r = False
         t = 0
-        if line[0] != '#':
+        if not line.startswith('#'):
             s1 = line.split('=')
             s2 = s1[1].split('|')
             if s2[2].strip() == 'recur':
