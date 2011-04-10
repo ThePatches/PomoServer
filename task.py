@@ -3,12 +3,8 @@ from collections import deque
 
 # Task Class
 
-class Task:
-    name = "none"
-    comment = "there is nothing about this task..."
-    complete = False
-    recur = False
-    times = 1
+class Task(object):
+
     def __init__(self, iName="none", iComment="nada!",
                  iRecur=False, iTimes=1):
         self.name = iName
@@ -18,12 +14,13 @@ class Task:
         self.times = iTimes
         
     def done(self):
+        """Mark the task as done."""
         self.complete = True
         if self.recur == True and self.times > 0:
             self.times = self.times - 1
         
 # Task Queue?
-class TasQue:
+class TasQue(object):
     __thequeue = []
     def __init__(self, ilist):
        self.__thequeue = deque(ilist)
