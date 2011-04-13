@@ -1,43 +1,17 @@
 #! /usr/bin/python
-
 """Client file for the PomoServer."""
 
-import socket
 import optparse
 
-from config import *
-import pom_msg
+from actions import (
+    done,
+    kill,
+    postpone,
+    repeat,
+    resume,
+    suspend,
+    )
 
-
-def kill(*args, **kwargs):
-    p = pom_msg.PMsg(pom_msg.KILL)
-    s = socket.socket()
-    s.connect((HOST, PORT))
-    s.send(p.makeStr())
-    s.close()
-
-def done(*args, **kwargs):
-    raise optparse.OptionValueError('not implemented yet')
-
-def repeat(*args, **kwargs):
-    raise optparse.OptionValueError('not implemented yet')
-
-def postpone(*args, **kwargs):
-    raise optparse.OptionValueError('not implemented yet')
-
-def suspend(*args, **kwargs):
-    p = pom_msg.PMsg(pom_msg.SUSPEND)
-    s = socket.socket()
-    s.connect((HOST, PORT))
-    s.send(p.makeStr())
-    s.close()
-
-def resume(*args, **kwargs):
-    p = pom_msg.PMsg(pom_msg.RESUME)
-    s = socket.socket()
-    s.connect((HOST, PORT))
-    s.send(p.makeStr())
-    s.close()
 
 def main():
     usage = 'pom [options]'
