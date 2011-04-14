@@ -11,10 +11,7 @@ import pom_msg
 
 def kill(*args, **kwargs):
     p = pom_msg.PMsg(pom_msg.KILL)
-    s = socket.socket()
-    s.connect((HOST, PORT))
-    s.send(p.makeStr())
-    s.close()
+    doSending(p)
 
 def done(*args, **kwargs):
     p = pom_msg.PMsg(pom_msg.DONE)
@@ -28,17 +25,15 @@ def postpone(*args, **kwargs):
 
 def suspend(*args, **kwargs):
     p = pom_msg.PMsg(pom_msg.SUSPEND)
-    s = socket.socket()
-    s.connect((HOST, PORT))
-    s.send(p.makeStr())
-    s.close()
+    doSending(p)
+
+def postpone(*args, **kwargs):
+    p = pom_msg.PMsg(pom_msg.DELAY)
+    doSending(p)
 
 def resume(*args, **kwargs):
     p = pom_msg.PMsg(pom_msg.RESUME)
-    s = socket.socket()
-    s.connect((HOST, PORT))
-    s.send(p.makeStr())
-    s.close()
+    doSending(p)
 
 def main():
     usage = 'pom [options]'
