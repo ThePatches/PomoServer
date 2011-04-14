@@ -1,5 +1,3 @@
-#! /usr/bin/python
-
 # This is the configuration file. Use it to store variables that will appear
 # across multiple files
 
@@ -12,7 +10,6 @@ PORT = 9999
 
 # Work and play settings apparently defined by the Pomodoro Method, but I don't
 # see why I can't make them configurable
-
 WORK_TIME = 60 * 1 # Use this to denote the actual seconds
 PLAY_TIME = 60 * 1
 

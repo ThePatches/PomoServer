@@ -1,11 +1,67 @@
 #! /usr/bin/python
 
-import socket
-import sys # For command line arguments
-import pom_msg
-from config import *
+"""Client file for the PomoServer."""
 
-# This file interacts with the running service
+import socket
+import optparse
+
+from config import *
+import pom_msg
+
+
+def kill(*args, **kwargs):
+    p = pom_msg.PMsg(pom_msg.KILL)
+    s = socket.socket()
+    s.connect((HOST, PORT))
+    s.send(p.makeStr())
+    s.close()
+
+def done(*args, **kwargs):
+    p = pom_msg.PMsg(pom_msg.DONE)
+    doSending(p)
+
+def repeat(*args, **kwargs):
+    raise optparse.OptionValueError('not implemented yet')
+
+def postpone(*args, **kwargs):
+    raise optparse.OptionValueError('not implemented yet')
+
+def suspend(*args, **kwargs):
+    p = pom_msg.PMsg(pom_msg.SUSPEND)
+    s = socket.socket()
+    s.connect((HOST, PORT))
+    s.send(p.makeStr())
+    s.close()
+
+def resume(*args, **kwargs):
+    p = pom_msg.PMsg(pom_msg.RESUME)
+    s = socket.socket()
+    s.connect((HOST, PORT))
+    s.send(p.makeStr())
+    s.close()
+
+def main():
+    usage = 'pom [options]'
+    parser = optparse.OptionParser(usage=usage)
+
+    parser.add_option('-k', '--kill', 
+        help='Kill the service.',
+        action='callback', callback=kill)
+    parser.add_option('-d', '--done', 
+        help='Mark the current task finished.',
+        action='callback', callback=done)
+    parser.add_option('-r', '--repeat', 
+        help='Repeat the current task.',
+        action='callback', callback=repeat)
+    parser.add_option('-p', '--postpone',
+        help='Postpone task by moving to the end of the queue.',
+        action='callback', callback=postpone)
+    parser.add_option('-s', '--suspend', 
+        help='Suspend the service.',
+        action="callback", callback=suspend)
+    parser.add_option('-e', '--resume',
+        help='Resume the service if suspended.',
+        action="callback", callback=resume)
 
 def doSending(msg):
     s = socket.socket()
@@ -13,26 +69,5 @@ def doSending(msg):
     s.send(msg.makeStr())
     s.close()
 
-
-if __name__ == "__main__":
-    if len(sys.argv) > 1:
-        if sys.argv[1] == '-h':
-            f = open('helptext', 'r')
-            print f.read()
-        elif sys.argv[1] == '-k':
-            p = pom_msg.PMsg(pom_msg.KILL)
-            doSending(p)
-        elif sys.argv[1] == '-s':
-            p = pom_msg.PMsg(pom_msg.SUSPEND)
-            doSending(p)
-        elif sys.argv[1] == '-e':
-            p = pom_msg.PMsg(pom_msg.RESUME)
-            doSending(p)
-        elif sys.argv[1] == '-d':
-            p = pom_msg.PMsg(pom_msg.DONE)
-            doSending(p)
-        else:
-            print 'Nothing to do.'
-    else:
-        print "Invalid option! Use '-h' for a list of arguments."
-
+if __name__ == '__main__':
+    main()

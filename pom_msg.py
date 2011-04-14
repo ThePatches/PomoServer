@@ -1,7 +1,4 @@
-#! /usr/bin/python
-
-# message class and messages
-# useless because of string passing?
+"""Pomodoro message tools"""
 
 # Numeric Codes for operation
 RUN = -1
@@ -11,29 +8,24 @@ RESUME = 2
 DONE = 3
 
 # some constants
-
 RECR = 'RECUR ' # indicates a recurring task. Format: RECUR X <- X = num times
 NONE = 'None'   # Blank Task based only on its codes
 DELAY = 'DELAY '# indicates a task delayed to later in the list Format: DELAY X <- X = num times 
 
-class PMsg:
-    __code = 0
-    __action = 'None'
+class PMsg(object):
 
-    def __init__(self, icode = 0, iaction='None'):
-        self.__code = icode
-        self.__action = iaction
+    def __init__(self, code = 0, action='None'):
+        self.__code = code
+        self.__action = action
 
     def isSimple(self):
         """ Determines whether the action is simple... """
-        if (self.__code == KILL or self.__code == SUSPEND or
-            self.__code == RESUME):
-            return True
-        else:
-            return False
+        return(self.__code == KILL or
+            self.__code == SUSPEND or
+            self.__code == RESUME)
     
     def getAction(self):
-        if self.isSimple() != True:
+        if not self.isSimple():
             return self.__action
         else:
             return 'simple'
@@ -44,6 +36,6 @@ class PMsg:
     def makeStr(self):
         return str(self.__code) + '|' + self.__action
 
-def fromStr(iString):
-    arr = iString.split('|')
+def fromStr(msg_str):
+    arr = msg_str.split('|')
     return PMsg(int(arr[0]), arr[1])

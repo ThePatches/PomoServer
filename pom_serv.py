@@ -2,16 +2,18 @@
 
 import SocketServer
 import socket
+import sys
 import threading
 import time
-import sys
-from task import Task
-from pom_msg import *
-from the_work import work_it
+
 import loader
 from config import *
+from pom_msg import *
+from task import Task
+from the_work import work_it
 
 class PomHandler(SocketServer.BaseRequestHandler):
+
     def handle(self):
         data = fromStr(self.request.recv(1024))
         # self.request.send(response)
@@ -30,6 +32,7 @@ class PomHandler(SocketServer.BaseRequestHandler):
         self.__done = True
 
 class PServer(SocketServer.ThreadingMixIn, SocketServer.TCPServer):
+
     daemon_threads = True
     code = RUN             # set indepentendly
     msg = PMsg(RUN, NONE)  # indicates an impending action

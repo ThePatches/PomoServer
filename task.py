@@ -3,28 +3,26 @@ from collections import deque
 
 # Task Class
 
-class Task:
-    name = "none"
-    comment = "there is nothing about this task..."
-    complete = False
-    recur = False
-    times = 1
-    def __init__(self, iName="none", iComment="nada!",
-                 iRecur=False, iTimes=1):
-        self.name = iName
-        self.comment=iComment
+class Task(object):
+
+    def __init__(self, name="none", comment="nada!",
+                 recur=False, times=1):
+        self.name = name
+        self.comment = comment
+        self.recur = recur
+        self.times = times
         complete = False
-        self.recur = iRecur
-        self.times = iTimes
         
     def done(self):
+        """Mark the task as done."""
         self.complete = True
         if self.recur == True and self.times > 0:
             self.times = self.times - 1
         
-# Task Queue?
-class TasQue:
+class TaskQueue(object):
+    
     __thequeue = []
+
     def __init__(self, ilist):
        self.__thequeue = deque(ilist)
 
@@ -34,8 +32,8 @@ class TasQue:
     def getQue(self):
         return self.__thequeue
 
- # mark_complete only does simple completion, not insertion
     def mark_complete(self, cont):
+        '''mark_complete only does simple completion, not insertion.'''
         t = self.__thequeue.popleft()
         t.done()
         # You will need to generalize this!
