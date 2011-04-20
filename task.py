@@ -38,12 +38,17 @@ class TaskQueue(object):
         t.done()
         # You will need to generalize this!
         print t.name + ' completed.'
-        print self.__thequeue[0].name + ' is up next.'
+        
         if t.recur == True and t.times != 0:
             if cont == True:
                 self.__thequeue.appendleft(t)
             else:
                 self.__thequeue.append(t)
+
+        if len(self.__thequeue) != 0: # If there are any items left...
+            print self.__thequeue[0].name + ' is up next.'
+        else:
+            print 'That was the final task!'
         
 
 # TODO: Infinite repeat, move in the queue, delete specific...

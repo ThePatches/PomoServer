@@ -30,7 +30,10 @@ def work_it(tasks, msg):
         else:
             print 'Action not supported...'
 
-    return tasks[0]
+    if len(tasks.getQue()) != 0:
+        return tasks[0]
+    else:
+        return None
     
 
 # for testing purposes
