@@ -58,6 +58,8 @@ def main():
         help='Resume the service if suspended.',
         action="callback", callback=resume)
 
+    (options, args) = parser.parse_args()
+
 def doSending(msg):
     s = socket.socket()
     s.connect((HOST, PORT))

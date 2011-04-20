@@ -20,5 +20,5 @@ def loadFile(filename): # Should be a class
             task = Task(s2[0], s2[1], r, t)
             task_queues.append(task)
     f.close()
-    q = TaskQueue(tasques)
+    q = TaskQueue(task_queues)
     return q
