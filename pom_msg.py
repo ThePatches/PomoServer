@@ -6,6 +6,7 @@ KILL = 0
 SUSPEND = 1
 RESUME = 2
 DONE = 3
+CURRENT = 4
 
 # some constants
 RECR = 'RECUR ' # indicates a recurring task. Format: RECUR X <- X = num times

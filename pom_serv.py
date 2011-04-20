@@ -18,6 +18,8 @@ class PomHandler(SocketServer.BaseRequestHandler):
         self.request.close()
         self.server.code = data.getCode()
         self.server.msg = data
+        
+        # Server operations are handled here...
         if data.getCode() == KILL:
             print 'Shutting down Pom Server...'
             self.server.shutdown()
@@ -85,6 +87,10 @@ if __name__ == "__main__":
             print  'Resuming Pom Service...' + q[0].name + ' is current task.'
             in_time = time.time()
             isPlay = False
+        elif server.code == CURRENT:
+            print 'Current task: ' + q[0].name
+            server.code = RUN
+        
         time.sleep(0.1)
         
     sys.exit(0)

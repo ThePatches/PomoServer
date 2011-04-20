@@ -35,6 +35,10 @@ def resume(*args, **kwargs):
     p = pom_msg.PMsg(pom_msg.RESUME)
     doSending(p)
 
+def current(*args, **kwards): # this gets a show time option?
+    p = pom_msg.PMsg(pom_msg.CURRENT)
+    doSending(p)
+
 def main():
     usage = 'pom [options]'
     parser = optparse.OptionParser(usage=usage)
@@ -54,6 +58,9 @@ def main():
     parser.add_option('-s', '--suspend', 
         help='Suspend the service.',
         action="callback", callback=suspend)
+    parser.add_option('-c', '--current',
+                      help='Display the current task.',
+                      action='callback', callback=current)
     parser.add_option('-e', '--resume',
         help='Resume the service if suspended.',
         action="callback", callback=resume)
