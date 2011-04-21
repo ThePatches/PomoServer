@@ -6,6 +6,7 @@ from task import *
 from pom_msg import *
 
 def work_it(tasks, msg):
+    """ Does all the work. """
     if msg.getCode() == DONE:
         print 'Completed ' + tasks[0].name
         if msg.getAction() == NONE:
@@ -29,7 +30,10 @@ def work_it(tasks, msg):
         else:
             print 'Action not supported...'
 
-    return tasks[0]
+    if len(tasks.getQue()) != 0:
+        return tasks[0]
+    else:
+        return None
     
 
 # for testing purposes

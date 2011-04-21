@@ -12,6 +12,8 @@ from actions import (
     suspend,
     )
 
+from config import *
+import pom_msg
 
 def main():
     usage = 'pom [options]'
@@ -37,6 +39,12 @@ def main():
         action="callback", callback=resume)
 
     (options, args) = parser.parse_args()
+
+def doSending(msg):
+    s = socket.socket()
+    s.connect((HOST, PORT))
+    s.send(msg.makeStr())
+    s.close()
 
 if __name__ == '__main__':
     main()

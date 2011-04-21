@@ -1,5 +1,3 @@
-#! /usr/bin/python
-
 import SocketServer
 import socket
 import sys
@@ -52,13 +50,21 @@ if __name__ == "__main__":
     isPlay = False
     t_block = WORK_TIME
 
+    print '\nWorking on ' + q[0].name
+
     while threading.active_count() > 1:
+        if len(q.getQue()) == 0 and server.code == RUN:
+            print 'No more tasks in queue! Suspending Server'
+            server.code = SUSPEND
+
         if server.code == DONE: #if server.code in [set] use me!
-            tasq = work_it(q, server.msg, in_time)
-            print 'Starting play time...'
-            isPlay = True
-            t_block = PLAY_TIME
-            in_time = time.time()
+            tasq = work_it(q, server.msg)
+            if tasq is not None:
+                print 'Starting play time...'
+                isPlay = True
+                t_block = PLAY_TIME + (WORK_TIME - int(in_time - time.time()))
+                in_time = time.time()
+            
             server.code = RUN
         elif server.code == RUN:
             if int(time.time() - in_time) > t_block:

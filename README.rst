@@ -1,13 +1,12 @@
-=============
+===================
 PomoServer ReadMe
-=============
+===================
 
 What is PomoServer
 ===================
-PomoServer is a Pomodoro Technique server program written in python and
-intended to replace using an egg time and a paper list by allowing the user
-to specify a list of tasks in a data file and then performing the egg timer
-functions as a background process.
+PomoServer is a `Pomodoro Technique <http://www.pomodorotechnique.com/>`_ server program written in python and
+intended to replace using an egg timer and a paper list by allowing the user
+to specify a list of tasks in a data file which the service will arrange into a queue. The service will then take care of the timing, AND allow the user to manipulate the task list on the fly, marking tasks done, delaying them, etc.
 
 PomoServer Parts
 -----------------
@@ -33,10 +32,27 @@ What Needs to be Done
 =======================
 PomoServer still needs a fair amount of work. Currently, there are two main lines of development:
 
-1. Convert the ``.py`` code into something more amenable to a background service. While `this recipie <http://code.activestate.com/recipes/278731/>` is a place to start, I'd love for the application to become compiled code so that there is a named, running service that makes the server easy to identify in ``top`` or ``ps``.
+1. Convert the ``.py`` code into something more amenable to a background service. While `this recipie <http://code.activestate.com/recipes/278731/>`_ is a place to start, I'd love for the application to become compiled code so that there is a named, running service that makes the server easy to identify in ``top`` or ``ps``.
 2. Enhancements to the Pomodoro task list are more than welcome. It would be great to move tasks around the list from the command line or add them n the fly.
 3. Make the task files more robust (possibly using `Configparser <http://docs.python.org/library/configparser.html>`_). All of this work can be done in ``loader.py`` and is therefore really low-impact towards the rest of the project.
 4. Notification. As I wrote the initial version for the command line, I am spitting messages out with ``print``. A more robust system that works well with window managers will greatly improve the application.
+5. Saving the task list when the server is killed would be good (or at least asking the user if he wants to do so).
+    a) A graceful catch on crash would be amazing, as well. Probably hard to catch because of all the threading going on.
+    b) The task list might need to be more robust if we're gonna use it to save the state of the server on termination. That would require further edits to ``loader.py``.
+
+File Manifest and Structure
+============================
+
+Utility Classes
+-----------------
+- ``task.py`` : Task, TasQue ``<-`` deals with tasks and the ordered list
+- ``pom_msg.py`` : PMsg ``<-`` Wrapper for messages destined for the server
+
+Work Functions
+----------------
+- ``loader.py`` : loadFile places a task list into memory from a file
+- ``the_work.py`` : performs the actions related to tasks on prompting by the user (called by the server program when the client indicates that stuff needs doing).
+
     
 A Final Note: Data Files
 ==========================
