@@ -1,40 +1,69 @@
 """Actions for the pomo server client."""
 
-import socket
+import optparse
 
-from config import *
 import pom_msg
 
 
-def start(*args, **kwargs):
-    raise NotImplemented
+def start(options):
+    usage = 'pom start'
+    parser = optparse.OptionParser(usage=usage)
+    (options, args) = parser.parse_args(options)
+    raise Exception('Not implemented.')
 
-def kill(*args, **kwargs):
-    p = pom_msg.PMsg(pom_msg.KILL)
-    s = socket.socket()
-    s.connect((HOST, PORT))
-    s.send(p.makeStr())
-    s.close()
+def stop(options):
+    usage = 'pom stop'
+    parser = optparse.OptionParser(usage=usage)
+    (options, args) = parser.parse_args(options)
+    pom_msg.sendMessage(pom_msg.KILL)
 
-def done(*args, **kwargs):
-    raise NotImplemented
+def suspend(options):
+    usage = 'pom suspend [options]'
+    parser = optparse.OptionParser(usage=usage)
+    parser.add_option('-t', '--time', 
+        dest='suspend_time',
+        help='Time, in seconds, to suspend for. Optional.')
+    (options, args) = parser.parse_args(options)
+    if options.time:
+        raise Exception('Not implemented.')
+    pom_msg.sendMessage(pom_msg.SUSPEND)
 
-def repeat(*args, **kwargs):
-    raise NotImplemented
+def resume(options):
+    usage = 'pom resume'
+    parser = optparse.OptionParser(usage=usage)
+    (options, args) = parser.parse_args(options)
+    pom_msg.sendMessage(pom_msg.RESUME)
 
-def postpone(*args, **kwargs):
-    raise NotImplemented
+def done(options):
+    usage = 'pom done'
+    parser = optparse.OptionParser(usage=usage)
+    (options, args) = parser.parse_args(options)
+    pom_msg.sendMessage(pom_msg.DONE)
+    raise Exception('Not implemented.')
 
-def suspend(*args, **kwargs):
-    p = pom_msg.PMsg(pom_msg.SUSPEND)
-    s = socket.socket()
-    s.connect((HOST, PORT))
-    s.send(p.makeStr())
-    s.close()
+def repeat(options):
+    usage = 'pom repeat [options]'
+    parser = optparse.OptionParser(usage=usage)
+    (options, args) = parser.parse_args(options)
+    parser.add_option('-n', '--number', 
+        dest='num',
+        help='Number of times to repeat.')
+    (options, args) = parser.parse_args(options)
+    raise Exception('Not implemented.')
 
-def resume(*args, **kwargs):
-    p = pom_msg.PMsg(pom_msg.RESUME)
-    s = socket.socket()
-    s.connect((HOST, PORT))
-    s.send(p.makeStr())
-    s.close()
+def postpone(options):
+    usage = 'pom postpone'
+    parser = optparse.OptionParser(usage=usage)
+    (options, args) = parser.parse_args(options)
+    raise Exception('Not implemented.')
+
+
+POM_ACTIONS = {
+    'start': start,
+    'stop': stop,
+    'suspend': suspend,
+    'resume': resume,
+    'done': done,
+    'repeat': repeat,
+    'postpone': postpone,
+    }

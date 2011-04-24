@@ -1,5 +1,9 @@
 """Pomodoro message tools"""
 
+import socket
+
+from config import *
+
 # Numeric Codes for operation
 RUN = -1
 KILL = 0
@@ -39,3 +43,9 @@ class PMsg(object):
 def fromStr(msg_str):
     arr = msg_str.split('|')
     return PMsg(int(arr[0]), arr[1])
+
+def sendMessage(msg):
+    s = socket.socket()
+    s.connect((HOST, PORT))
+    s.send(msg.makeStr())
+    s.close()
