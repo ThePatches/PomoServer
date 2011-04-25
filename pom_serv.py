@@ -14,7 +14,6 @@ class PomHandler(SocketServer.BaseRequestHandler):
 
     def handle(self):
         data = fromStr(self.request.recv(1024))
-        # self.request.send(response)
         self.request.close()
         self.server.code = data.getCode()
         self.server.msg = data
@@ -32,14 +31,17 @@ class PomHandler(SocketServer.BaseRequestHandler):
         self.__done = True
 
 class PServer(SocketServer.ThreadingMixIn, SocketServer.TCPServer):
-
     daemon_threads = True
-    code = RUN             # set indepentendly
-    msg = PMsg(RUN, NONE)  # indicates an impending action
+    
+    def SetUp(self):
+        """ Creates instance level variables for code and message. """
+        self.code = RUN
+        self.msg = PMsg(RUN, NONE)
 
 if __name__ == "__main__":
     # configure server
     server = PServer((HOST, PORT), PomHandler)
+    server.SetUp()
 
     # begin listening
     server_thread = threading.Thread(target=server.serve_forever)
@@ -48,9 +50,10 @@ if __name__ == "__main__":
 
     # configure Pomodoro functions
     q = loader.loadFile(FILELOC)
-    in_time = time.time()
+    in_time = time.time() # When the block started
     isPlay = False
-    t_block = WORK_TIME
+    t_block = WORK_TIME   # Size of the block we are in
+    suspend_ticks = 0     # The ticks elapsed before suspension
 
     print '\nWorking on ' + q[0].name
 
@@ -69,7 +72,8 @@ if __name__ == "__main__":
             
             server.code = RUN
         elif server.code == RUN:
-            if int(time.time() - in_time) > t_block:
+            if int(time.time() - in_time) > t_block - suspend_ticks:
+                suspend_ticks = 0
                 if isPlay == False:
                     tasq = work_it(q, PMsg(DONE, 'None')) # RUN OUT OF TASKS?
                     print 'Starting play time...'
@@ -90,9 +94,9 @@ if __name__ == "__main__":
         elif server.code == CURRENT:
             print 'Current task: ' + q[0].name
             server.code = RUN
+        elif server.code == SUSPEND:
+            suspend_ticks = in_time - time.time()
         
         time.sleep(0.1)
         
     sys.exit(0)
-
-# requires a the_work wrapper function that returns the server to the Run state
