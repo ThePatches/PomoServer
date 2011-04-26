@@ -23,7 +23,7 @@ class TaskQueue(object):
     
     __thequeue = []
 
-    def __init__(self, ilist):
+    def __init__(self, ilist = []):
        self.__thequeue = deque(ilist)
 
     def __getitem__(self, key):
@@ -51,6 +51,7 @@ class TaskQueue(object):
             print 'That was the final task!'
         
     def to_file(self, filename):
+    	""" Writes the task list to the specified file """
         f = open(filename, 'w')
         for x in self.__thequeue:
             line = []
@@ -69,3 +70,26 @@ class TaskQueue(object):
             o_line = o_line + '\n'
             f.write(o_line)
             del line
+
+    def from_file(self, filename):
+        """ Loads a TaskQueue from a file File Name """
+        f = file(filename)
+        task_queues = []
+        task = Task('empty', 'nothing')
+        for line in f:
+            line = line.strip()
+            r = False
+            t = 0
+            if not line.startswith('#'):
+                s1 = line.split('=')
+                s2 = s1[1].split('|')
+                if s2[2].strip() == 'recur':
+                    r = True
+                    if str(s2[3])[:3].strip() == 'inf':
+                        t = -1
+                    else:
+                        t = int(s2[3])
+                task = Task(s2[0], s2[1], r, t)
+                task_queues.append(task)
+        f.close()
+        self.__thequeue = deque(task_queues)

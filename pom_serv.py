@@ -4,10 +4,9 @@ import sys
 import threading
 import time
 
-import loader
 from config import *
 from pom_msg import *
-from task import Task
+from task import Task, TaskQueue
 from the_work import work_it
 
 class PomHandler(SocketServer.BaseRequestHandler):
@@ -49,7 +48,8 @@ if __name__ == "__main__":
     server_thread.start()
 
     # configure Pomodoro functions
-    q = loader.loadFile(FILELOC)
+    q = TaskQueue()
+    q.from_file(FILELOC)
     in_time = time.time() # When the block started
     isPlay = False
     t_block = WORK_TIME   # Size of the block we are in
