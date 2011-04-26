@@ -36,9 +36,7 @@ PomoServer still needs a fair amount of work. Currently, there are two main line
 2. Enhancements to the Pomodoro task list are more than welcome. It would be great to move tasks around the list from the command line or add them n the fly.
 3. Make the task files more robust (possibly using `Configparser <http://docs.python.org/library/configparser.html>`_). All of this work can be done in ``loader.py`` and is therefore really low-impact towards the rest of the project.
 4. Notification. As I wrote the initial version for the command line, I am spitting messages out with ``print``. A more robust system that works well with window managers will greatly improve the application.
-5. Saving the task list when the server is killed would be good (or at least asking the user if he wants to do so).
-    a) A graceful catch on crash would be amazing, as well. Probably hard to catch because of all the threading going on.
-    b) The task list might need to be more robust if we're gonna use it to save the state of the server on termination. That would require further edits to ``loader.py``.
+5. A graceful catch on crash that would save the task list in the event of failure would be amazing, as well. Probably hard to catch because of all the threading going on.
 
 File Manifest and Structure
 ============================
