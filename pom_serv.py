@@ -98,5 +98,6 @@ if __name__ == "__main__":
             suspend_ticks = in_time - time.time()
         
         time.sleep(0.1)
-        
+
+    q.to_file(FILELOC)
     sys.exit(0)
