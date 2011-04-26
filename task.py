@@ -50,5 +50,22 @@ class TaskQueue(object):
         else:
             print 'That was the final task!'
         
+    def to_file(self, filename):
+        f = open(filename, 'w')
+        for x in self.__thequeue:
+            line = []
+            line.append(x.name)
+            line.append(x.comment)
+            if x.recur:
+                line.append('recur')
+                if x.times == -1:
+                    line.append('inf')
+                else:
+                    line.append(str(x.times))
+            else:
+                line.append('once')
 
-# TODO: Infinite repeat, move in the queue, delete specific...
+            o_line = '|'.join(line)
+            o_line = o_line + '\n'
+            f.write(o_line)
+            del line
