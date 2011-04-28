@@ -8,6 +8,7 @@ from config import *
 from pom_msg import *
 from task import Task, TaskQueue
 from the_work import work_it
+import procname
 
 class PomHandler(SocketServer.BaseRequestHandler):
 
@@ -37,10 +38,11 @@ class PServer(SocketServer.ThreadingMixIn, SocketServer.TCPServer):
         self.code = RUN
         self.msg = PMsg(RUN, NONE)
 
-if __name__ == "__main__":
+def main():
     # configure server
     server = PServer((HOST, PORT), PomHandler)
     server.SetUp()
+    procname.setprocname('PomoServer')
 
     # begin listening
     server_thread = threading.Thread(target=server.serve_forever)
@@ -101,3 +103,6 @@ if __name__ == "__main__":
 
     q.to_file(FILELOC)
     sys.exit(0)
+    
+if __name__ == "__main__":
+    main()
