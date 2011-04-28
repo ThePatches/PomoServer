@@ -6,7 +6,7 @@ from task import *
 from pom_msg import *
 
 def work_it(tasks, msg):
-    """ Does all the work. """
+    """ Does task manipulation within the queue. """
     if msg.getCode() == DONE:
         print 'Completed ' + tasks[0].name
         if msg.getAction() == NONE:

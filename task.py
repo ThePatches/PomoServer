@@ -1,10 +1,10 @@
-# import time
+""" Pomo Task Related classes. """
+
 from collections import deque
 
-# Task Class
-
 class Task(object):
-
+    """ Class that holds information about a task. """
+    
     def __init__(self, name="none", comment="nada!",
                  recur=False, times=1):
         self.name = name
@@ -20,7 +20,8 @@ class Task(object):
             self.times = self.times - 1
         
 class TaskQueue(object):
-    
+    """ Holds a block of tasks. """
+
     __thequeue = []
 
     def __init__(self, ilist = []):
@@ -30,6 +31,7 @@ class TaskQueue(object):
         return self.__thequeue[key]
 
     def getQue(self):
+        """ Returns the queue, in case you need it. """
         return self.__thequeue
 
     def mark_complete(self, cont):
