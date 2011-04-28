@@ -67,7 +67,7 @@ class TaskQueue(object):
                 line.append('once')
 
             o_line = '|'.join(line)
-            o_line = o_line + '\n'
+            o_line = 'task=' + o_line + '\n'
             f.write(o_line)
             del line
 
