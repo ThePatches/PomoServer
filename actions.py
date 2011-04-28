@@ -1,7 +1,6 @@
 """Actions for the pomo server client."""
 
 import optparse
-
 import pom_msg
 
 
@@ -56,6 +55,12 @@ def postpone(options):
     (options, args) = parser.parse_args(options)
     raise Exception('Not implemented.')
 
+def current(options):
+    usage = 'pom current'
+    parser = optparse.OptionParser(usage=usage)
+    (options, args) = parser.parse_args(options)
+    pom_msg.sendMessage(pom_msg.PMsg(pom_msg.CURRENT))
+
 
 POM_ACTIONS = {
     'start': start,
@@ -65,4 +70,5 @@ POM_ACTIONS = {
     'done': done,
     'repeat': repeat,
     'postpone': postpone,
+    'current': current,
     }

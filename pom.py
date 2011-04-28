@@ -11,7 +11,7 @@ if __name__ == '__main__':
     usage = (
         'pom '
         '{start|stop|suspend'
-        '|resume|done|repeat|postpone}'
+        '|resume|done|repeat|postpone|current}'
         ' [options]')
     
     try:
