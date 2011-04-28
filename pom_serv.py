@@ -37,7 +37,7 @@ class PServer(SocketServer.ThreadingMixIn, SocketServer.TCPServer):
         self.code = RUN
         self.msg = PMsg(RUN, NONE)
 
-if __name__ == "__main__":
+def main():
     # configure server
     server = PServer((HOST, PORT), PomHandler)
     server.SetUp()
@@ -101,3 +101,6 @@ if __name__ == "__main__":
 
     q.to_file(FILELOC)
     sys.exit(0)
+    
+if __name__ == "__main__":
+    main()
