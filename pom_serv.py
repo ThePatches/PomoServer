@@ -8,6 +8,7 @@ from config import *
 from pom_msg import *
 from task import Task, TaskQueue
 from the_work import work_it
+import prctl
 
 class PomHandler(SocketServer.BaseRequestHandler):
 
@@ -41,6 +42,8 @@ def main():
     # configure server
     server = PServer((HOST, PORT), PomHandler)
     server.SetUp()
+    prctl.set_name('PomoServer')
+    prctl.set_proctitle('PomoServer')
 
     # begin listening
     server_thread = threading.Thread(target=server.serve_forever)

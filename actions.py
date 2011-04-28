@@ -1,15 +1,28 @@
 """Actions for the pomo server client."""
 
 import optparse
-
 import pom_msg
+import sys, os
+import pom_serv
 
 
 def start(options):
     usage = 'pom start'
     parser = optparse.OptionParser(usage=usage)
     (options, args) = parser.parse_args(options)
-    raise Exception('Not implemented.')
+    # raise Exception('Not implemented.')
+    # fork magic. Should maybe move this to the pom_serv.py file
+    try:
+        pid = os.fork()
+        if pid > 0:
+            sys.exit(0)
+    except OSError, e:
+        print >>sys.stderr, "fork #1 failed: %d (%s)" % (e.errno, e.strerror) 
+        sys.exit(1)
+
+    pom_serv.main() # let's try without the daemon...
+        
+    
 
 def stop(options):
     usage = 'pom stop'
